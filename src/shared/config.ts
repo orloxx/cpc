@@ -12,12 +12,14 @@ interface Contexts {
 
 interface Configuration {
   contexts: Contexts;
+  current: string;
 }
 
 export default class Config {
   private static FILE = `${homedir()}/.cpcrc`;
   private static initial: Configuration = {
     contexts: {},
+    current: '',
   };
 
   private static get(): Promise<Configuration> {
@@ -60,6 +62,17 @@ export default class Config {
       ...config.contexts,
       [context.name]: context,
     };
+    await Config.save(config);
+  }
+
+  static async getSavedContexts(): Promise<string[]> {
+    const config: Configuration = await Config.get();
+    return Object.keys(config.contexts);
+  }
+
+  static async saveCurrent(current: string): Promise<void> {
+    const config: Configuration = await Config.get();
+    config.current = current;
     await Config.save(config);
   }
 }

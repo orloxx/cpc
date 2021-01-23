@@ -1,7 +1,7 @@
-import { Context } from './config';
+import Config, { Context } from './config';
 
 // import is failing
-const { Form } = require('enquirer');
+const { Form, AutoComplete } = require('enquirer');
 
 export default class Ask {
   static createContext(): Promise<Context> {
@@ -12,6 +12,20 @@ export default class Ask {
         { name: 'name', message: 'Context name', initial: 'awesome-project' },
         { name: 'description', message: 'Description', initial: 'Some awesome project' },
       ],
+    }).run();
+  }
+
+  static async listContexts(): Promise<string> {
+    const savedContexts: string[] = await Config.getSavedContexts();
+
+    if (!savedContexts.length) {
+      throw 'There are no contexts created yet.\nTry creating one!';
+    }
+
+    return new AutoComplete({
+      name: 'context',
+      message: 'Pick a context configuration',
+      choices: savedContexts,
     }).run();
   }
 }
