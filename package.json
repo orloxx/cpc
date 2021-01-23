@@ -2,7 +2,9 @@
   "name": "@orloxx/cpc",
   "version": "0.0.1",
   "description": "A program to easily change context between projects.",
-  "keywords": [],
+  "keywords": [
+    "TypeScript", "command-line"
+  ],
   "author": {
     "name": "Iker Garitaonandia",
     "url": "https://iker.io"

@@ -1,3 +1,4 @@
+import Add from './add';
 import Help from './help';
 
 export interface CoreAction {
@@ -11,4 +12,5 @@ export interface CoreActions {
 
 export const coreActions:CoreActions = {
   help: new Help(),
+  add: new Add(),
 };
