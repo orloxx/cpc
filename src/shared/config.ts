@@ -14,17 +14,17 @@ interface Configuration {
   contexts: Contexts;
 }
 
-const CONFIG_PATH: string = `${homedir()}/.cpcrc`;
-const initialConfig: Configuration = {
-  contexts: {},
-};
-
 export default class Config {
+  private static FILE: string = `${homedir()}/.cpcrc`;
+  private static initial: Configuration = {
+    contexts: {},
+  };
+
   private static get(): Promise<Configuration> {
     return new Promise((resolve, reject) => {
-      readFile(CONFIG_PATH, 'utf8' , (err: NodeJS.ErrnoException | null, data: string): void => {
+      readFile(Config.FILE, 'utf8' , (err: NodeJS.ErrnoException | null, data: string): void => {
         if (err) {
-          resolve(initialConfig);
+          resolve(Config.initial);
           return;
         }
         try {
@@ -41,7 +41,7 @@ export default class Config {
     return new Promise((resolve, reject) => {
       try {
         const data: string = JSON.stringify(config);
-        writeFile(CONFIG_PATH, data, (err: NodeJS.ErrnoException | null): void => {
+        writeFile(Config.FILE, data, (err: NodeJS.ErrnoException | null): void => {
           if (err) {
             reject(err);
             return;
