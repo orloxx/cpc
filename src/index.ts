@@ -1,5 +1,13 @@
 #!/usr/bin/env node
 
+import { CoreAction, coreActions } from './core/core';
+
 const [,, command]:string[] = process.argv;
 
-console.log(command);
+const coreAction: CoreAction = coreActions[command];
+
+if(coreAction) {
+  coreAction.exec();
+} else {
+  coreActions.help.exec();
+}
