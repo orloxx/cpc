@@ -7,7 +7,7 @@ export default class Help implements CoreAction {
   }
 
   summary(): string {
-    return 'Displays this screen'
+    return 'Displays this screen';
   }
 
   private static title(): void {

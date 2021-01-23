@@ -11,7 +11,7 @@ export default class Ask {
       choices: [
         { name: 'name', message: 'Context name', initial: 'awesome-project' },
         { name: 'description', message: 'Description', initial: 'Some awesome project' },
-      ]
+      ],
     }).run();
   }
 }

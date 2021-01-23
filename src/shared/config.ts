@@ -15,14 +15,14 @@ interface Configuration {
 }
 
 export default class Config {
-  private static FILE: string = `${homedir()}/.cpcrc`;
+  private static FILE = `${homedir()}/.cpcrc`;
   private static initial: Configuration = {
     contexts: {},
   };
 
   private static get(): Promise<Configuration> {
     return new Promise((resolve, reject) => {
-      readFile(Config.FILE, 'utf8' , (err: NodeJS.ErrnoException | null, data: string): void => {
+      readFile(Config.FILE, 'utf8', (err: NodeJS.ErrnoException | null, data: string): void => {
         if (err) {
           resolve(Config.initial);
           return;
@@ -33,7 +33,7 @@ export default class Config {
         } catch (e) {
           reject(e);
         }
-      })
+      });
     });
   }
 
@@ -58,7 +58,7 @@ export default class Config {
     const config: Configuration = await Config.get();
     config.contexts = {
       ...config.contexts,
-      [context.name]: context
+      [context.name]: context,
     };
     await Config.save(config);
   }

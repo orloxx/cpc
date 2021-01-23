@@ -10,7 +10,7 @@ export interface CoreActions {
   [propName: string]: CoreAction;
 }
 
-export const coreActions:CoreActions = {
+export const coreActions: CoreActions = {
   help: new Help(),
   add: new Add(),
 };
