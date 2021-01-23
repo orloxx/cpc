@@ -2,6 +2,7 @@ import Add from './add';
 import Edit from './edit';
 import Help from './help';
 import Info from './info';
+import Remove from './remove';
 import Use from './use';
 
 export interface CoreAction {
@@ -19,4 +20,5 @@ export const coreActions: CoreActions = {
   edit: new Edit(),
   use: new Use(),
   info: new Info(),
+  remove: new Remove(),
 };
