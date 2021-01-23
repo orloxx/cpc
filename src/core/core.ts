@@ -1,4 +1,5 @@
 import Add from './add';
+import Edit from './edit';
 import Help from './help';
 import Info from './info';
 import Use from './use';
@@ -15,6 +16,7 @@ export interface CoreActions {
 export const coreActions: CoreActions = {
   help: new Help(),
   add: new Add(),
+  edit: new Edit(),
   use: new Use(),
   info: new Info(),
 };

@@ -5,7 +5,7 @@ export default class Help implements CoreAction {
   async exec(): Promise<void> {
     console.log();
     Help.title();
-    Help.overview();
+    Help.coreActions();
     Help.examples();
     console.log();
   }
@@ -21,13 +21,15 @@ export default class Help implements CoreAction {
     console.log('██║     ██╔═══╝ ██║');
     console.log('╚██████╗██║     ╚██████╗');
     console.log(' ╚═════╝╚═╝      ╚═════╝\n');
+    console.log('A program to easily change context between projects.\n');
   }
 
-  private static overview(): void {
-    console.log('A program to easily change context between projects.\n');
+  private static coreActions(): void {
     console.log('List of available commands:\n');
     Object.keys(coreActions).forEach((action: string) => {
-      console.log(`\t${Logger.bold(action).padEnd(20)} ${Logger.dim(coreActions[action].summary())}`);
+      console.log(
+        `\t${Logger.bold(action).padEnd(20)} ${Logger.dim(coreActions[action].summary())}`,
+      );
     });
   }
 

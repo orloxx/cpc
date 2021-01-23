@@ -1,12 +1,13 @@
-import Config, { Context } from './config';
+import Config, { Action, Context } from './config';
+import Logger from './logger';
 
 // import is failing
-const { Form, AutoComplete } = require('enquirer');
+const { Form, AutoComplete, Confirm } = require('enquirer');
 
 export default class Ask {
   static createContext(): Promise<Context> {
     return new Form({
-      name: 'context',
+      name: 'createContext',
       message: 'Choose a name and description for your new context:',
       choices: [
         { name: 'name', message: 'Context name', initial: 'awesome-project' },
@@ -19,13 +20,63 @@ export default class Ask {
     const savedContexts: string[] = await Config.getSavedContexts();
 
     if (!savedContexts.length) {
-      throw 'There are no contexts created yet.\nTry creating one!';
+      throw `There are no contexts created yet.\nTry ${Logger.bold('cpc add')}`;
     }
 
     return new AutoComplete({
-      name: 'context',
+      name: 'listContexts',
       message: 'Pick a context configuration',
       choices: savedContexts,
+    }).run();
+  }
+
+  static createAction(initial?: Action): Promise<Action> {
+    const name = initial?.name || 'start-server';
+    const path = initial?.path || '~/some/path/to/directory';
+    const command = initial?.command || 'npm run serve';
+
+    const editForm = {
+      name: 'createAction',
+      message: `Edit '${name}' action`,
+      choices: [
+        { name: 'path', message: 'Directory path', initial: path },
+        { name: 'command', message: 'Define command', initial: command },
+      ],
+    };
+
+    if (!initial) {
+      const newForm = {
+        ...editForm,
+        message: 'Create new action:',
+        choices: [{ name: 'name', message: 'Action name', initial: name }, ...editForm.choices],
+      };
+      return new Form(newForm).run();
+    }
+
+    return new Form(editForm).run().then((action: Action) => ({
+      ...action,
+      name,
+    }));
+  }
+
+  static async isEditAction(): Promise<boolean> {
+    return new Confirm({
+      name: 'isEditAction',
+      message: 'Do you want to edit an existing action?',
+    }).run();
+  }
+
+  static async listActions(): Promise<string> {
+    const currentActions: string[] = await Config.getCurrentActions();
+
+    if (!currentActions.length) {
+      throw `There are not actions yet.\nTry ${Logger.bold('cpc edit')}`;
+    }
+
+    return new AutoComplete({
+      name: 'listActions',
+      message: 'Which action?',
+      choices: currentActions,
     }).run();
   }
 }

@@ -1,9 +1,21 @@
 import { writeFile, readFile } from 'fs';
 import { homedir } from 'os';
+import Logger from './logger';
+
+export interface Action {
+  name: string;
+  path: string;
+  command: string;
+}
+
+export interface Actions {
+  [actionName: string]: Action;
+}
 
 export interface Context {
   name: string;
   description: string;
+  actions?: Actions;
 }
 
 interface Contexts {
@@ -79,5 +91,46 @@ export default class Config {
   static async getContext(contextName: string): Promise<Context> {
     const config: Configuration = await Config.get();
     return config.contexts[contextName];
+  }
+
+  static async getCurrent(): Promise<Context> {
+    const config: Configuration = await Config.get();
+
+    if (!config.current) {
+      throw `There is no context selected.\nTry: ${Logger.bold('cpc use')}`;
+    }
+
+    return config.contexts[config.current];
+  }
+
+  static async saveAction(contextName: string, action: Action): Promise<void> {
+    const config: Configuration = await Config.get();
+    config.contexts[contextName].actions = {
+      ...config.contexts[contextName].actions,
+      [action.name]: action,
+    };
+    await Config.save(config);
+  }
+
+  static async getCurrentActions(): Promise<string[]> {
+    const current: Context = await Config.getCurrent();
+    return Object.keys(current.actions || {});
+  }
+
+  static async getAction(actionName: string): Promise<Action> {
+    const config: Configuration = await Config.get();
+    const actions: Actions = config.contexts[config.current].actions || {};
+    return actions[actionName];
+  }
+
+  static async removeContext(contextName: string): Promise<void> {
+    const config: Configuration = await Config.get();
+    delete config.contexts[contextName];
+
+    if (config.current === contextName) {
+      config.current = '';
+    }
+
+    await Config.save(config);
   }
 }
