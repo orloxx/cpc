@@ -75,4 +75,9 @@ export default class Config {
     config.current = current;
     await Config.save(config);
   }
+
+  static async getContext(contextName: string): Promise<Context> {
+    const config: Configuration = await Config.get();
+    return config.contexts[contextName];
+  }
 }
