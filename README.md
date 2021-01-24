@@ -37,6 +37,6 @@ Remove a whole context configuration
 
     cpc remove
 
-Load a configuration from file. Make sure you're in the same directory as the `cpcconfig.json` file
+Load context from configuration file. Make sure you're in the same directory as `cpcconfig.json`
 
     cpc load
