@@ -9,7 +9,6 @@ export default class Help implements CoreAction {
     await Help.currentActions();
     Help.coreActions();
     Help.examples();
-    console.log();
   }
 
   summary(): string {
@@ -17,24 +16,27 @@ export default class Help implements CoreAction {
   }
 
   private static title(): void {
+    const pkg = require('../../package.json');
     console.log(' ██████╗██████╗  ██████╗');
     console.log('██╔════╝██╔══██╗██╔════╝');
     console.log('██║     ██████╔╝██║');
     console.log('██║     ██╔═══╝ ██║');
     console.log('╚██████╗██║     ╚██████╗');
-    console.log(' ╚═════╝╚═╝      ╚═════╝\n');
+    console.log(` ╚═════╝╚═╝      ╚═════╝ v${pkg.version}\n`);
     console.log('A program to easily change context between projects.\n');
   }
 
   private static async currentActions(): Promise<void> {
     try {
       const context: Context = await Config.getCurrent();
-      console.log(`Current project: ${Logger.bold(context.name)}\n`);
-      const actions: string[] | undefined = context.actions && Object.keys(context.actions);
+      console.log(`Current context: ${Logger.underline(Logger.bold(context.name))}\n`);
+      const actions: string[] = Object.keys(context.actions);
       if (actions && actions.length) {
         console.log('List of available actions:\n');
         actions.forEach((action: string) => {
-          console.log(`\t${Logger.bold(action)}`);
+          console.log(
+            `\t${Logger.bold(action)} ${Logger.dim(context.actions[action].description)}`,
+          );
         });
       } else {
         console.log(`You have no actions created. Try ${Logger.bold('cpc edit')}`);
@@ -54,7 +56,9 @@ export default class Help implements CoreAction {
   }
 
   private static examples(): void {
-    console.log('Example:\n');
+    console.log('Examples:\n');
     console.log('\tcpc add');
+    console.log('\tcpc edit');
+    console.log();
   }
 }

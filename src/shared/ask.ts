@@ -31,16 +31,17 @@ export default class Ask {
   }
 
   static createAction(initial?: Action): Promise<Action> {
-    const name = initial?.name || 'start-server';
     const path = initial?.path || '~/some/path/to/directory';
     const command = initial?.command || 'npm run serve';
+    const description = initial?.description || 'Describe what your action does';
 
     const editForm = {
       name: 'createAction',
-      message: `Edit '${name}' action`,
+      message: `Edit '${initial?.name}' action`,
       choices: [
         { name: 'path', message: 'Directory path', initial: path },
         { name: 'command', message: 'Define command', initial: command },
+        { name: 'description', message: 'Short description', initial: description },
       ],
     };
 
@@ -48,14 +49,17 @@ export default class Ask {
       const newForm = {
         ...editForm,
         message: 'Create new action:',
-        choices: [{ name: 'name', message: 'Action name', initial: name }, ...editForm.choices],
+        choices: [
+          { name: 'name', message: 'Action name', initial: 'start-server' },
+          ...editForm.choices,
+        ],
       };
       return new Form(newForm).run();
     }
 
     return new Form(editForm).run().then((action: Action) => ({
       ...action,
-      name,
+      name: initial?.name,
     }));
   }
 

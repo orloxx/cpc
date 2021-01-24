@@ -6,6 +6,7 @@ export interface Action {
   name: string;
   path: string;
   command: string;
+  description: string;
 }
 
 export interface Actions {
@@ -15,7 +16,7 @@ export interface Actions {
 export interface Context {
   name: string;
   description: string;
-  actions?: Actions;
+  actions: Actions;
 }
 
 interface Contexts {
@@ -72,7 +73,7 @@ export default class Config {
     const config: Configuration = await Config.get();
     config.contexts = {
       ...config.contexts,
-      [context.name]: context,
+      [context.name]: { ...context, actions: {} },
     };
     await Config.save(config);
   }

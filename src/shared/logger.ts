@@ -32,4 +32,8 @@ export default class Logger {
   static dim(text: string): string {
     return `${Logger.DIM}${text}${Logger.RESET}`;
   }
+
+  static underline(text: string): string {
+    return `${Logger.UNDERSCORE}${text}${Logger.RESET}`;
+  }
 }
