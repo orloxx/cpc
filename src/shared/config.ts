@@ -73,9 +73,13 @@ export default class Config {
     const config: Configuration = await Config.get();
     config.contexts = {
       ...config.contexts,
-      [context.name]: { ...context, actions: {} },
+      [context.name]: {
+        ...context,
+        actions: { ...context.actions },
+      },
     };
     await Config.save(config);
+    console.log(`Context '${Logger.bold(context.name)}' saved!`);
   }
 
   static async getSavedContexts(): Promise<string[]> {
@@ -87,6 +91,7 @@ export default class Config {
     const config: Configuration = await Config.get();
     config.current = current;
     await Config.save(config);
+    console.log(`Now using '${Logger.bold(current)}' context`);
   }
 
   static async getContext(contextName: string): Promise<Context> {
@@ -115,13 +120,12 @@ export default class Config {
 
   static async getCurrentActions(): Promise<string[]> {
     const current: Context = await Config.getCurrent();
-    return Object.keys(current.actions || {});
+    return Object.keys(current.actions);
   }
 
   static async getAction(actionName: string): Promise<Action> {
-    const config: Configuration = await Config.get();
-    const actions: Actions = config.contexts[config.current].actions || {};
-    return actions[actionName];
+    const current: Context = await Config.getCurrent();
+    return current.actions[actionName];
   }
 
   static async removeContext(contextName: string): Promise<void> {

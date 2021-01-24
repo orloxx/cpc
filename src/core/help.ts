@@ -49,7 +49,7 @@ export default class Help implements CoreAction {
     console.log('List of available commands:\n');
     Object.keys(coreActions).forEach((action: string) => {
       console.log(
-        `\t${Logger.bold(action).padEnd(20)} ${Logger.dim(coreActions[action].summary())}`,
+        `\t${Logger.bold(action)} ${Logger.dim(coreActions[action].summary())}`,
       );
     });
     console.log();

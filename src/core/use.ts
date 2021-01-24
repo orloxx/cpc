@@ -7,7 +7,6 @@ export default class Use implements CoreAction {
     try {
       const contextName: string = await Ask.listContexts();
       await Config.saveCurrent(contextName);
-      console.log(`Now using '${contextName}' context`);
     } catch (e) {
       console.error(e);
     }

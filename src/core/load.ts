@@ -9,9 +9,7 @@ export default class Load implements CoreAction {
     try {
       const context: Context = await this.getContext();
       await Config.saveContext(context);
-      console.log(`Context '${context.name}' created!`);
       await Config.saveCurrent(context.name);
-      console.log(`Now using '${context.name}' context`);
     } catch (e) {
       console.error(e);
     }

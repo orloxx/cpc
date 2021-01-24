@@ -8,7 +8,7 @@ export default class Run implements CoreAction {
     try {
       const actionName: string = await Ask.listActions();
       const action: Action = await Config.getAction(actionName);
-      this.run(action.path, action.command);
+      this.run(action);
     } catch (e) {
       console.error(e);
     }
@@ -18,7 +18,7 @@ export default class Run implements CoreAction {
     return 'Runs one of the actions from the current context configuration';
   }
 
-  run(path: string, command: string): void {
+  run({ path, command }: Action): void {
     const endCommand: string = path ? `cd ${path} && ${command}` : command;
 
     console.log(`Executing: ${endCommand}\n`);

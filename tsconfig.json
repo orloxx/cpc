@@ -3,7 +3,7 @@
     "target": "ES5",
     "module": "CommonJS",
     "declaration": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "lib",
     "rootDir": "src",
     "removeComments": true,

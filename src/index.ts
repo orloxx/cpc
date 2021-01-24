@@ -1,13 +1,28 @@
 #!/usr/bin/env node
 
 import { CoreAction, coreActions } from './core/core';
+import Config, { Action } from './shared/config';
+import Run from './core/run';
 
-const [, , command]: string[] = process.argv;
+async function startProgram(): Promise<void> {
+  const [, , command]: string[] = process.argv;
+  const coreAction: CoreAction = coreActions[command];
 
-const coreAction: CoreAction = coreActions[command];
+  if (coreAction) {
+    await coreAction.exec();
+    return;
+  }
 
-if (coreAction) {
-  coreAction.exec();
-} else {
-  coreActions.help.exec();
+  try {
+    const action: Action = await Config.getAction(command);
+    if (action) {
+      const runAction: Run = new Run();
+      runAction.run(action);
+      return;
+    }
+  } catch (e) {}
+
+  await coreActions.help.exec();
 }
+
+startProgram();

@@ -7,7 +7,7 @@ export default class Add implements CoreAction {
     try {
       const context: Context = await Ask.createContext();
       await Config.saveContext(context);
-      console.log('New context created!');
+      await Config.saveCurrent(context.name);
     } catch (e) {
       console.error(e);
     }
