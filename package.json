@@ -11,6 +11,7 @@
     "url": "https://iker.io"
   },
   "license": "MIT",
+  "repository": "github:orloxx/cpc",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
