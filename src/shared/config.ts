@@ -79,7 +79,7 @@ export default class Config {
       },
     };
     await Config.save(config);
-    console.log(`Context '${Logger.bold(context.name)}' saved!`);
+    console.log(`\tContext ${Logger.bold(context.name)} saved!`);
   }
 
   static async getSavedContexts(): Promise<string[]> {
@@ -91,7 +91,7 @@ export default class Config {
     const config: Configuration = await Config.get();
     config.current = current;
     await Config.save(config);
-    console.log(`Now using '${Logger.bold(current)}' context`);
+    console.log(`\tNow using ${Logger.bold(current)} context`);
   }
 
   static async getContext(contextName: string): Promise<Context> {
@@ -116,6 +116,7 @@ export default class Config {
       [action.name]: action,
     };
     await Config.save(config);
+    console.log(`\tAction ${Logger.bold(action.name)} saved!`);
   }
 
   static async getCurrentActions(): Promise<string[]> {
@@ -137,5 +138,6 @@ export default class Config {
     }
 
     await Config.save(config);
+    console.log(`Context ${Logger.bold(contextName)} was successfully removed!`);
   }
 }

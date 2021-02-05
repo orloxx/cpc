@@ -1,3 +1,5 @@
+import { Action, Context } from './config';
+
 export default class Logger {
   static RESET = '\x1b[0m';
   static BRIGHT = '\x1b[1m';
@@ -35,5 +37,17 @@ export default class Logger {
 
   static underline(text: string): string {
     return `${Logger.UNDERSCORE}${text}${Logger.RESET}`;
+  }
+
+  static contextInfo(context: Context): void {
+    console.log(`\tName: ${context.name}`);
+    console.log(`\tDescription: ${Logger.dim(context.description)}`);
+  }
+
+  static actionInfo(action: Action): void {
+    console.log(`\tName: ${action.name}`);
+    console.log(`\tPath: ${action.path}`);
+    console.log(`\tCommand: ${action.command}`);
+    console.log(`\tDescription: ${Logger.dim(action.description)}`);
   }
 }

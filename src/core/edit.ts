@@ -7,7 +7,7 @@ export default class Edit implements CoreAction {
   async exec(): Promise<void> {
     try {
       const current: Context = await Config.getCurrent();
-      console.log(`Editing '${Logger.bold(current.name)}' context configuration`);
+      console.log(`Editing ${Logger.bold(current.name)} context`);
 
       let newAction: Action;
       if (current.actions && Object.keys(current.actions).length) {
@@ -24,7 +24,6 @@ export default class Edit implements CoreAction {
       }
 
       await Config.saveAction(current.name, newAction);
-      console.log(`Action '${newAction.name}' saved to '${current.name}' context`);
     } catch (e) {
       console.error(e);
     }

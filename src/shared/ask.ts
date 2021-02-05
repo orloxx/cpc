@@ -5,8 +5,8 @@ import Logger from './logger';
 const { Form, AutoComplete, Confirm } = require('enquirer');
 
 export default class Ask {
-  static createContext(): Promise<Context> {
-    return new Form({
+  static async createContext(): Promise<Context> {
+    const newContext: Context = await new Form({
       name: 'createContext',
       message: 'Choose a name and description for your new context:',
       choices: [
@@ -14,6 +14,8 @@ export default class Ask {
         { name: 'description', message: 'Description', initial: 'Some awesome project' },
       ],
     }).run();
+    Logger.contextInfo(newContext);
+    return newContext;
   }
 
   static async listContexts(): Promise<string> {
@@ -30,7 +32,14 @@ export default class Ask {
     }).run();
   }
 
-  static createAction(initial?: Action): Promise<Action> {
+  static async isCreateAction(): Promise<boolean> {
+    return new Confirm({
+      name: 'isCreateAction',
+      message: 'Add a new action?',
+    }).run();
+  }
+
+  static async createAction(initial?: Action): Promise<Action> {
     const path = initial?.path || '~/some/path/to/directory';
     const command = initial?.command || 'npm run serve';
     const description = initial?.description || 'Describe what your action does';
@@ -57,10 +66,12 @@ export default class Ask {
       return new Form(newForm).run();
     }
 
-    return new Form(editForm).run().then((action: Action) => ({
+    const action: Action = await new Form(editForm).run().then((action: Action) => ({
       ...action,
       name: initial?.name,
     }));
+    Logger.actionInfo(action);
+    return action;
   }
 
   static async isEditAction(): Promise<boolean> {
