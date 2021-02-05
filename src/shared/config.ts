@@ -119,11 +119,6 @@ export default class Config {
     console.log(`\tAction ${Logger.bold(action.name)} saved!`);
   }
 
-  static async getCurrentActions(): Promise<string[]> {
-    const current: Context = await Config.getCurrent();
-    return Object.keys(current.actions);
-  }
-
   static async getAction(actionName: string): Promise<Action> {
     const current: Context = await Config.getCurrent();
     return current.actions[actionName];

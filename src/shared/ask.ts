@@ -82,11 +82,13 @@ export default class Ask {
   }
 
   static async listActions(): Promise<string> {
-    const currentActions: string[] = await Config.getCurrentActions();
+    const currentContext: Context = await Config.getCurrent();
+    const currentActions: string[] = Object.keys(currentContext.actions);
 
     if (!currentActions.length) {
       throw `There are not actions yet.\nTry ${Logger.bold('cpc edit')}`;
     }
+    console.log(`Running ${Logger.bold(currentContext.name)} context`);
 
     return new AutoComplete({
       name: 'listActions',
