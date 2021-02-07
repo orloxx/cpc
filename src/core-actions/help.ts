@@ -1,4 +1,4 @@
-import { CoreAction, coreActions } from './core';
+import { CoreAction, coreActions } from './';
 import Logger from '../shared/logger';
 import Config, { Context } from '../shared/config';
 

@@ -1,5 +1,5 @@
 import { spawn } from 'child_process';
-import { CoreAction } from './core';
+import { CoreAction } from './';
 import Ask from '../shared/ask';
 import Config, { Action } from '../shared/config';
 

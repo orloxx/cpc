@@ -1,4 +1,4 @@
-import { CoreAction } from './core';
+import { CoreAction } from './';
 import Config from '../shared/config';
 import Ask from '../shared/ask';
 

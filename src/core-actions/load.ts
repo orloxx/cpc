@@ -1,5 +1,5 @@
 import { readFile } from 'fs';
-import { CoreAction } from './core';
+import { CoreAction } from './';
 import Config, { Context } from '../shared/config';
 
 export default class Load implements CoreAction {
