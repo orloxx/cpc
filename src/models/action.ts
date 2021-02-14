@@ -45,19 +45,23 @@ export function getEditActionForm(action: Action): EnquirerForm {
   };
 }
 
+export const INITIAL_ACTION: Action = {
+  name: 'start-server',
+  path: '~/some/path/to/directory',
+  command: 'npm run serve',
+  description: 'Describe what your action does',
+};
+
 export function getNewActionForm(): EnquirerForm {
+  const { name, path, command, description }: Action = INITIAL_ACTION;
   return {
     name: 'newAction',
     message: 'Create new action:',
     choices: [
-      { name: 'name', message: 'Action name', initial: 'start-server' },
-      { name: 'path', message: 'Directory path', initial: '~/some/path/to/directory' },
-      { name: 'command', message: 'Define command', initial: 'npm run serve' },
-      {
-        name: 'description',
-        message: 'Short description',
-        initial: 'Describe what your action does',
-      },
+      { name: 'name', message: 'Action name', initial: name },
+      { name: 'path', message: 'Directory path', initial: path },
+      { name: 'command', message: 'Define command', initial: command },
+      { name: 'description', message: 'Short description', initial: description },
     ],
   };
 }
