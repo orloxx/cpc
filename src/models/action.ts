@@ -1,4 +1,4 @@
-import { EnquirerConfirm, EnquirerForm, EnquirerList } from './enquirer';
+import { EnquirerChoice, EnquirerConfirm, EnquirerForm, EnquirerList } from './enquirer';
 
 export interface Action {
   name: string;
@@ -33,15 +33,22 @@ export function getActionsAutocomplete(list: string[]): EnquirerList {
   };
 }
 
+function getActionChoices(initial: Action): EnquirerChoice[] {
+  const { name, path, command, description }: Action = initial;
+  return [
+    { name: 'name', message: 'Action name', initial: name },
+    { name: 'path', message: 'Directory path', initial: path },
+    { name: 'command', message: 'Define command', initial: command },
+    { name: 'description', message: 'Short description', initial: description },
+  ];
+}
+
 export function getEditActionForm(action: Action): EnquirerForm {
+  const { name }: Action = action;
   return {
     name: 'editAction',
-    message: `Edit '${action.name}' action`,
-    choices: [
-      { name: 'path', message: 'Directory path', initial: action.path },
-      { name: 'command', message: 'Define command', initial: action.command },
-      { name: 'description', message: 'Short description', initial: action.description },
-    ],
+    message: `Edit '${name}' action`,
+    choices: getActionChoices(action).filter((item) => item.name !== 'name'),
   };
 }
 
@@ -53,15 +60,9 @@ export const INITIAL_ACTION: Action = {
 };
 
 export function getNewActionForm(): EnquirerForm {
-  const { name, path, command, description }: Action = INITIAL_ACTION;
   return {
     name: 'newAction',
     message: 'Create new action:',
-    choices: [
-      { name: 'name', message: 'Action name', initial: name },
-      { name: 'path', message: 'Directory path', initial: path },
-      { name: 'command', message: 'Define command', initial: command },
-      { name: 'description', message: 'Short description', initial: description },
-    ],
+    choices: getActionChoices(INITIAL_ACTION),
   };
 }

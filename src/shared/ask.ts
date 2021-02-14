@@ -34,18 +34,19 @@ export default class Ask {
     return new Confirm(getConfirmNewAction()).run();
   }
 
-  static async createAction(initial?: Action): Promise<Action> {
-    if (initial) {
-      const action: Action = await new Form(getEditActionForm(initial))
-        .run()
-        .then((action: Action) => ({
-          ...action,
-          name: initial.name,
-        }));
-      Logger.actionInfo(action);
-      return action;
-    }
+  static async createAction(): Promise<Action> {
     return new Form(getNewActionForm()).run();
+  }
+
+  static async editAction(initial: Action): Promise<Action> {
+    const action: Action = await new Form(getEditActionForm(initial))
+      .run()
+      .then((action: Action) => ({
+        ...action,
+        name: initial.name,
+      }));
+    Logger.actionInfo(action);
+    return action;
   }
 
   static async isEditAction(): Promise<boolean> {

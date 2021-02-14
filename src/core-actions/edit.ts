@@ -17,7 +17,7 @@ export default class Edit implements CoreAction {
         if (isEdit) {
           const actionName: string = await Ask.listActions();
           const action: Action = await Config.getAction(actionName);
-          newAction = await Ask.createAction(action);
+          newAction = await Ask.editAction(action);
         } else {
           newAction = await Ask.createAction();
         }

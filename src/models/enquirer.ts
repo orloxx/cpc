@@ -1,11 +1,13 @@
+export interface EnquirerChoice {
+  name: string;
+  message: string;
+  initial?: string;
+}
+
 export interface EnquirerForm {
   name: string;
   message: string;
-  choices: {
-    name: string;
-    message: string;
-    initial: string;
-  }[];
+  choices: EnquirerChoice[];
 }
 
 export interface EnquirerList {
