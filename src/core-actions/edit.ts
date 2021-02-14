@@ -1,7 +1,9 @@
 import { CoreAction } from './';
 import Ask from '../shared/ask';
-import Config, { Action, Context } from '../shared/config';
+import Config from '../shared/config';
 import Logger from '../shared/logger';
+import { Context } from '../models/context';
+import { Action } from '../models/action';
 
 export default class Edit implements CoreAction {
   async exec(): Promise<void> {

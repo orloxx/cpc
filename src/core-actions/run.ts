@@ -1,7 +1,8 @@
 import { spawn } from 'child_process';
 import { CoreAction } from './';
 import Ask from '../shared/ask';
-import Config, { Action } from '../shared/config';
+import Config from '../shared/config';
+import { Action } from '../models/action';
 
 export default class Run implements CoreAction {
   async exec(): Promise<void> {

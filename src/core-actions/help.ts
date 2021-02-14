@@ -1,6 +1,7 @@
 import { CoreAction, coreActions } from './';
 import Logger from '../shared/logger';
-import Config, { Context } from '../shared/config';
+import Config from '../shared/config';
+import { Context } from '../models/context';
 
 export default class Help implements CoreAction {
   async exec(): Promise<void> {

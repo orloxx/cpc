@@ -1,6 +1,7 @@
 import { readFile } from 'fs';
 import { CoreAction } from './';
-import Config, { Context } from '../shared/config';
+import Config from '../shared/config';
+import { Context } from '../models/context';
 
 export default class Load implements CoreAction {
   private static FILE_CONFIG = 'cpcconfig.json';

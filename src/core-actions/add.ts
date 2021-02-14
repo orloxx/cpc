@@ -1,6 +1,8 @@
 import { CoreAction } from './';
-import Config, { Action, Context } from '../shared/config';
+import Config from '../shared/config';
 import Ask from '../shared/ask';
+import { Context } from '../models/context';
+import { Action } from '../models/action';
 
 export default class Add implements CoreAction {
   async exec(): Promise<void> {

@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 import { CoreAction, coreActions } from './core-actions';
-import Config, { Action } from './shared/config';
+import Config from './shared/config';
 import Run from './core-actions/run';
+import { Action } from './models/action';
 
 async function startProgram(): Promise<void> {
   const [, , command]: string[] = process.argv;

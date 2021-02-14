@@ -1,7 +1,8 @@
 import { CoreAction } from './';
 import Ask from '../shared/ask';
-import Config, { Context } from '../shared/config';
+import Config from '../shared/config';
 import Logger from '../shared/logger';
+import { Context } from '../models/context';
 
 export default class Info implements CoreAction {
   async exec(): Promise<void> {

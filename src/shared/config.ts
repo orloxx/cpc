@@ -1,27 +1,8 @@
 import { writeFile, readFile } from 'fs';
 import { homedir } from 'os';
 import Logger from './logger';
-
-export interface Action {
-  name: string;
-  path: string;
-  command: string;
-  description: string;
-}
-
-export interface Actions {
-  [actionName: string]: Action;
-}
-
-export interface Context {
-  name: string;
-  description: string;
-  actions: Actions;
-}
-
-interface Contexts {
-  [contextName: string]: Context;
-}
+import { Context, Contexts } from '../models/context';
+import { Action } from '../models/action';
 
 interface Configuration {
   contexts: Contexts;

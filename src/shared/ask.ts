@@ -1,19 +1,21 @@
-import Config, { Action, Context } from './config';
+import Config from './config';
 import Logger from './logger';
+import { Context, getContextAutocomplete, getContextForm } from '../models/context';
+import {
+  Action,
+  getActionsAutocomplete,
+  getConfirmEditAction,
+  getConfirmNewAction,
+  getEditActionForm,
+  getNewActionForm,
+} from '../models/action';
 
 // import is failing
 const { Form, AutoComplete, Confirm } = require('enquirer');
 
 export default class Ask {
   static async createContext(): Promise<Context> {
-    const newContext: Context = await new Form({
-      name: 'createContext',
-      message: 'Choose a name and description for your new context:',
-      choices: [
-        { name: 'name', message: 'Context name', initial: 'awesome-project' },
-        { name: 'description', message: 'Description', initial: 'Some awesome project' },
-      ],
-    }).run();
+    const newContext: Context = await new Form(getContextForm()).run();
     Logger.contextInfo(newContext);
     return newContext;
   }
@@ -25,60 +27,29 @@ export default class Ask {
       throw `There are no contexts created yet.\nTry ${Logger.bold('cpc add')}`;
     }
 
-    return new AutoComplete({
-      name: 'listContexts',
-      message: 'Pick a context configuration',
-      choices: savedContexts,
-    }).run();
+    return new AutoComplete(getContextAutocomplete(savedContexts)).run();
   }
 
   static async isCreateAction(): Promise<boolean> {
-    return new Confirm({
-      name: 'isCreateAction',
-      message: 'Add a new action?',
-    }).run();
+    return new Confirm(getConfirmNewAction()).run();
   }
 
   static async createAction(initial?: Action): Promise<Action> {
-    const path = initial?.path || '~/some/path/to/directory';
-    const command = initial?.command || 'npm run serve';
-    const description = initial?.description || 'Describe what your action does';
-
-    const editForm = {
-      name: 'createAction',
-      message: `Edit '${initial?.name}' action`,
-      choices: [
-        { name: 'path', message: 'Directory path', initial: path },
-        { name: 'command', message: 'Define command', initial: command },
-        { name: 'description', message: 'Short description', initial: description },
-      ],
-    };
-
-    if (!initial) {
-      const newForm = {
-        ...editForm,
-        message: 'Create new action:',
-        choices: [
-          { name: 'name', message: 'Action name', initial: 'start-server' },
-          ...editForm.choices,
-        ],
-      };
-      return new Form(newForm).run();
+    if (initial) {
+      const action: Action = await new Form(getEditActionForm(initial))
+        .run()
+        .then((action: Action) => ({
+          ...action,
+          name: initial.name,
+        }));
+      Logger.actionInfo(action);
+      return action;
     }
-
-    const action: Action = await new Form(editForm).run().then((action: Action) => ({
-      ...action,
-      name: initial?.name,
-    }));
-    Logger.actionInfo(action);
-    return action;
+    return new Form(getNewActionForm()).run();
   }
 
   static async isEditAction(): Promise<boolean> {
-    return new Confirm({
-      name: 'isEditAction',
-      message: 'Do you want to edit an existing action?',
-    }).run();
+    return new Confirm(getConfirmEditAction()).run();
   }
 
   static async listActions(): Promise<string> {
@@ -90,10 +61,6 @@ export default class Ask {
     }
     console.log(`Running ${Logger.bold(currentContext.name)} context`);
 
-    return new AutoComplete({
-      name: 'listActions',
-      message: 'Which action?',
-      choices: currentActions,
-    }).run();
+    return new AutoComplete(getActionsAutocomplete(currentActions)).run();
   }
 }

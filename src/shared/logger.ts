@@ -1,4 +1,5 @@
-import { Action, Context } from './config';
+import { Context } from '../models/context';
+import { Action } from '../models/action';
 
 export default class Logger {
   static RESET = '\x1b[0m';
