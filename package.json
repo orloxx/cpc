@@ -1,6 +1,6 @@
 {
   "name": "@orloxx/cpc",
-  "version": "0.0.3",
+  "version": "0.0.4-SNAPSHOT",
   "description": "A program to easily change context between projects.",
   "keywords": [
     "TypeScript",
