@@ -25,6 +25,13 @@ export function getConfirmEditAction(): EnquirerConfirm {
   };
 }
 
+export function getConfirmRemoveAction(): EnquirerConfirm {
+  return {
+    name: 'isRemoveAction',
+    message: 'Do you want to remove an existing action?',
+  };
+}
+
 export function getActionsAutocomplete(list: string[]): EnquirerList {
   return {
     name: 'listActions',

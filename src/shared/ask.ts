@@ -6,6 +6,7 @@ import {
   getActionsAutocomplete,
   getConfirmEditAction,
   getConfirmNewAction,
+  getConfirmRemoveAction,
   getEditActionForm,
   getNewActionForm,
 } from '../models/action';
@@ -51,6 +52,10 @@ export default class Ask {
 
   static async isEditAction(): Promise<boolean> {
     return new Confirm(getConfirmEditAction()).run();
+  }
+
+  static async isRemoveAction(): Promise<boolean> {
+    return new Confirm(getConfirmRemoveAction()).run();
   }
 
   static async listActions(): Promise<string> {

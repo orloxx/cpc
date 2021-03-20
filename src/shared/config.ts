@@ -125,4 +125,14 @@ export default class Config {
     await Config.save(config);
     console.log(`Context ${Logger.bold(contextName)} was successfully removed!`);
   }
+
+  static async removeAction(actionName: string): Promise<void> {
+    const current: Context = await Config.getCurrent();
+    const { name: contextName } = current;
+    const config: Configuration = await Config.get();
+    delete config.contexts[contextName].actions[actionName];
+
+    await Config.save(config);
+    console.log(`Action ${Logger.bold(actionName)} was successfully removed!`);
+  }
 }
