@@ -73,5 +73,3 @@ Here is a sample configuration:
 After loading this example you can execute the `say-hi` action
 
     cpc say-hi
-
-[<img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=orloxx&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff">](https://www.buymeacoffee.com/orloxx)
