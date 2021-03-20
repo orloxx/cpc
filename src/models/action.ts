@@ -53,10 +53,10 @@ export function getEditActionForm(action: Action): EnquirerForm {
 }
 
 export const INITIAL_ACTION: Action = {
-  name: 'start-server',
-  path: '~/some/path/to/directory',
-  command: 'npm run serve',
-  description: 'Describe what your action does',
+  name: 'hello-world',
+  path: 'no path',
+  command: 'echo "hello world"',
+  description: 'Prints "hello world"',
 };
 
 export function getNewActionForm(): EnquirerForm {

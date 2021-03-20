@@ -21,7 +21,7 @@
     "lib"
   ],
   "scripts": {
-    "start": "npm run build && cpc",
+    "start": "npm run prepare && cpc",
     "lint": "eslint ./src --fix",
     "build": "tsc",
     "prepare": "npm run lint && npm run build",

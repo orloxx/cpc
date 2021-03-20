@@ -2,7 +2,7 @@ import { writeFile, readFile } from 'fs';
 import { homedir } from 'os';
 import Logger from './logger';
 import { Context, Contexts } from '../models/context';
-import { Action } from '../models/action';
+import { Action, INITIAL_ACTION } from '../models/action';
 
 interface Configuration {
   contexts: Contexts;
@@ -90,14 +90,23 @@ export default class Config {
     return config.contexts[config.current];
   }
 
+  static sanitizeAction(action: Action): Action {
+    const { path } = INITIAL_ACTION;
+    return {
+      ...action,
+      path: action.path === path ? '' : action.path,
+    };
+  }
+
   static async saveAction(contextName: string, action: Action): Promise<void> {
+    const cleanAction: Action = this.sanitizeAction(action);
     const config: Configuration = await Config.get();
     config.contexts[contextName].actions = {
       ...config.contexts[contextName].actions,
-      [action.name]: action,
+      [cleanAction.name]: cleanAction,
     };
     await Config.save(config);
-    console.log(`\tAction ${Logger.bold(action.name)} saved!`);
+    console.log(`\tAction ${Logger.bold(cleanAction.name)} saved!`);
   }
 
   static async getAction(actionName: string): Promise<Action> {
