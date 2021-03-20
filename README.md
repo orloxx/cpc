@@ -45,9 +45,10 @@ Or, you can also execute the action directly if you know the name
 
 ## Loading configuration
 
-Load context. Make sure you're in the same directory as `cpcconfig.json`
+It loads the context configuration from `configPath` which accepts .js files,
+if empty it will look for `./cpcconfig.json`
 
-    cpc load
+    cpc load [configPath]
 
 Here is a sample configuration:
 

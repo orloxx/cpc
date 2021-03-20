@@ -6,11 +6,11 @@ import Run from './core-actions/run';
 import { Action } from './models/action';
 
 async function startProgram(): Promise<void> {
-  const [, , command]: string[] = process.argv;
+  const [, , command, ...params]: string[] = process.argv;
   const coreAction: CoreAction = coreActions[command];
 
   if (coreAction) {
-    await coreAction.exec();
+    await coreAction.exec(params);
     return;
   }
 

@@ -8,7 +8,7 @@ import Run from './run';
 import Use from './use';
 
 export interface CoreAction {
-  exec(): Promise<void>;
+  exec(args?: string[]): Promise<void>;
   summary(): string;
 }
 

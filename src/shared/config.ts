@@ -99,7 +99,7 @@ export default class Config {
   }
 
   static async saveAction(contextName: string, action: Action): Promise<void> {
-    const cleanAction: Action = this.sanitizeAction(action);
+    const cleanAction: Action = Config.sanitizeAction(action);
     const config: Configuration = await Config.get();
     config.contexts[contextName].actions = {
       ...config.contexts[contextName].actions,
