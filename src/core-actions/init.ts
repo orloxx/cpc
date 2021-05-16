@@ -14,6 +14,9 @@ export default class Init implements CoreAction {
         const action: Action = await Ask.createAction();
         await Config.saveAction(context.name, action);
       }
+
+      const newContext: Context = await Config.getContext(context.name);
+      await Config.export(newContext);
     } catch (e) {
       console.error(e);
     }
