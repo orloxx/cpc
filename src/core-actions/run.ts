@@ -3,13 +3,24 @@ import { CoreAction } from './';
 import Ask from '../shared/ask';
 import Config from '../shared/config';
 import { Action } from '../models/action';
+import Logger from '../shared/logger';
 
 export default class Run implements CoreAction {
-  async exec(): Promise<void> {
+  async exec(args: string[] = []): Promise<void> {
     try {
-      const actionName: string = await Ask.listActions();
+      let [actionName]: string[] = args;
+
+      if (!actionName) {
+        actionName = await Ask.listActions();
+      }
+
       const action: Action = await Config.getAction(actionName);
-      this.run(action);
+
+      if (action) {
+        this.run(action);
+      } else {
+        console.error(`Action ${Logger.bold(actionName)} does not exist`);
+      }
     } catch (e) {
       console.error(e);
     }
