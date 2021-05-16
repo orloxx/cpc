@@ -17,6 +17,8 @@ export default class Help implements CoreAction {
   }
 
   private static title(): void {
+    // import is failing
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const pkg = require('../../package.json');
     console.log(' ██████╗██████╗  ██████╗');
     console.log('██╔════╝██╔══██╗██╔════╝');
@@ -56,8 +58,8 @@ export default class Help implements CoreAction {
 
   private static examples(): void {
     console.log('Examples:\n');
-    console.log('\tcpc add');
-    console.log('\tcpc edit');
+    console.log('\tcpc init');
+    console.log('\tcpc use');
     console.log();
   }
 }

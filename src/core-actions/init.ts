@@ -4,7 +4,7 @@ import Ask from '../shared/ask';
 import { Context } from '../models/context';
 import { Action } from '../models/action';
 
-export default class Add implements CoreAction {
+export default class Init implements CoreAction {
   async exec(): Promise<void> {
     try {
       const context: Context = await Ask.createContext();

@@ -12,6 +12,7 @@ import {
 } from '../models/action';
 
 // import is failing
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { Form, AutoComplete, Confirm } = require('enquirer');
 
 export default class Ask {
@@ -25,7 +26,7 @@ export default class Ask {
     const savedContexts: string[] = await Config.getSavedContexts();
 
     if (!savedContexts.length) {
-      throw `There are no contexts created yet.\nTry ${Logger.bold('cpc add')}`;
+      throw `There are no contexts created yet.\nTry ${Logger.bold('cpc init')}`;
     }
 
     return new AutoComplete(getContextAutocomplete(savedContexts)).run();
