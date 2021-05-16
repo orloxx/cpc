@@ -3,13 +3,25 @@ import Logger from '../shared/logger';
 import Config from '../shared/config';
 import { Context } from '../models/context';
 
+export const HELP_TYPES = {
+  compact: 'compact',
+};
+
 export default class Help implements CoreAction {
-  async exec(): Promise<void> {
+  async exec(args: string[] = []): Promise<void> {
+    const [type]: string[] = args;
+
     console.log();
-    Help.title();
+    if (type !== HELP_TYPES.compact) {
+      Help.title();
+    }
+
     await Help.currentActions();
-    Help.coreActions();
-    Help.examples();
+
+    if (type !== HELP_TYPES.compact) {
+      Help.coreActions();
+      Help.examples();
+    }
   }
 
   summary(): string {

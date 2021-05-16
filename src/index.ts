@@ -3,6 +3,7 @@
 import { CoreAction, coreActions } from './core-actions';
 import Config from './shared/config';
 import Run from './core-actions/run';
+import { HELP_TYPES } from './core-actions/help';
 import { Action } from './models/action';
 
 async function startProgram(): Promise<void> {
@@ -23,7 +24,7 @@ async function startProgram(): Promise<void> {
     }
   } catch (e) {}
 
-  await coreActions.help.exec();
+  await coreActions.help.exec([HELP_TYPES.compact]);
 }
 
 startProgram();
