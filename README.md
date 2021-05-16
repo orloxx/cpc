@@ -3,7 +3,7 @@
     ██║     ██████╔╝██║
     ██║     ██╔═══╝ ██║
     ╚██████╗██║     ╚██████╗
-     ╚═════╝╚═╝      ╚═════╝
+     ╚═════╝╚═╝      ╚═════╝ v0.0.4
 
 A program to easily change context between projects.
 
@@ -15,7 +15,7 @@ A program to easily change context between projects.
 
 Start by creating a new context
 
-    cpc add
+    cpc init
 
 Activate the context by using it
 

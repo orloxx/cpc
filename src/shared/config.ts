@@ -15,6 +15,7 @@ export default class Config {
     contexts: {},
     current: '',
   };
+  public static FILE_CONFIG = 'cpcconfig.json';
 
   private static get(): Promise<Configuration> {
     return new Promise((resolve, reject) => {
@@ -33,13 +34,14 @@ export default class Config {
     });
   }
 
-  private static save(config: Configuration): Promise<void> {
+  private static save(obj: unknown, file: string = Config.FILE, pretty = false): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        const data: string = JSON.stringify(config);
-        writeFile(Config.FILE, data, (err: NodeJS.ErrnoException | null): void => {
-          if (err) {
-            reject(err);
+        const data = pretty ? JSON.stringify(obj, null, 2) : JSON.stringify(obj);
+
+        writeFile(file, data, (error: NodeJS.ErrnoException | null): void => {
+          if (error) {
+            reject(error);
             return;
           }
           resolve();
@@ -134,5 +136,10 @@ export default class Config {
 
     await Config.save(config);
     console.log(`Action ${Logger.bold(actionName)} was successfully removed!`);
+  }
+
+  static async export(context: Context): Promise<void> {
+    await Config.save(context, `./${Config.FILE_CONFIG}`, true);
+    console.log(`\n\tNew context configuration created and exported to ./${Config.FILE_CONFIG}`);
   }
 }

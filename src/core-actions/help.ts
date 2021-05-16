@@ -3,13 +3,25 @@ import Logger from '../shared/logger';
 import Config from '../shared/config';
 import { Context } from '../models/context';
 
+export const HELP_TYPES = {
+  compact: 'compact',
+};
+
 export default class Help implements CoreAction {
-  async exec(): Promise<void> {
+  async exec(args: string[] = []): Promise<void> {
+    const [type]: string[] = args;
+
     console.log();
-    Help.title();
+    if (type !== HELP_TYPES.compact) {
+      Help.title();
+    }
+
     await Help.currentActions();
-    Help.coreActions();
-    Help.examples();
+
+    if (type !== HELP_TYPES.compact) {
+      Help.coreActions();
+      Help.examples();
+    }
   }
 
   summary(): string {
@@ -17,6 +29,8 @@ export default class Help implements CoreAction {
   }
 
   private static title(): void {
+    // import is failing
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const pkg = require('../../package.json');
     console.log(' ██████╗██████╗  ██████╗');
     console.log('██╔════╝██╔══██╗██╔════╝');
@@ -56,8 +70,8 @@ export default class Help implements CoreAction {
 
   private static examples(): void {
     console.log('Examples:\n');
-    console.log('\tcpc add');
-    console.log('\tcpc edit');
+    console.log('\tcpc init');
+    console.log('\tcpc use');
     console.log();
   }
 }

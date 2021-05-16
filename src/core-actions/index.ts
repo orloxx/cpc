@@ -1,4 +1,4 @@
-import Add from './add';
+import Init from './init';
 import Edit from './edit';
 import Help from './help';
 import Info from './info';
@@ -18,7 +18,7 @@ export interface CoreActions {
 
 export const coreActions: CoreActions = {
   help: new Help(),
-  add: new Add(),
+  init: new Init(),
   load: new Load(),
   edit: new Edit(),
   use: new Use(),

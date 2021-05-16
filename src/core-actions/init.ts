@@ -4,7 +4,7 @@ import Ask from '../shared/ask';
 import { Context } from '../models/context';
 import { Action } from '../models/action';
 
-export default class Add implements CoreAction {
+export default class Init implements CoreAction {
   async exec(): Promise<void> {
     try {
       const context: Context = await Ask.createContext();
@@ -14,6 +14,9 @@ export default class Add implements CoreAction {
         const action: Action = await Ask.createAction();
         await Config.saveAction(context.name, action);
       }
+
+      const newContext: Context = await Config.getContext(context.name);
+      await Config.export(newContext);
     } catch (e) {
       console.error(e);
     }
