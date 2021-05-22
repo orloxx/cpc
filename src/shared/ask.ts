@@ -4,12 +4,13 @@ import { Context, getContextAutocomplete, getContextForm } from '../models/conte
 import {
   Action,
   getActionsAutocomplete,
-  getConfirmEditAction,
+  getEditChoices,
   getConfirmNewAction,
-  getConfirmRemoveAction,
+  getRemoveChoices,
   getEditActionForm,
   getNewActionForm,
 } from '../models/action';
+import { EnquirerConfirm } from '../models/enquirer';
 
 // import is failing
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -51,12 +52,12 @@ export default class Ask {
     return action;
   }
 
-  static async isEditAction(): Promise<boolean> {
-    return new Confirm(getConfirmEditAction()).run();
+  static async editChoice(): Promise<string> {
+    return new AutoComplete(getEditChoices()).run();
   }
 
-  static async isRemoveAction(): Promise<boolean> {
-    return new Confirm(getConfirmRemoveAction()).run();
+  static async removeChoice(): Promise<string> {
+    return new AutoComplete(getRemoveChoices()).run();
   }
 
   static async listActions(): Promise<string> {
@@ -69,5 +70,15 @@ export default class Ask {
     console.log(`Running ${Logger.bold(currentContext.name)} context`);
 
     return new AutoComplete(getActionsAutocomplete(currentActions)).run();
+  }
+
+  static async confirm(
+    question: () => EnquirerConfirm,
+    callback: () => Promise<void>,
+  ): Promise<void> {
+    const response = await new Confirm(question()).run();
+    if (response === true) {
+      await callback();
+    }
   }
 }

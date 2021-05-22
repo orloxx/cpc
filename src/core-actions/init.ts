@@ -2,7 +2,7 @@ import { CoreAction } from './';
 import Config from '../shared/config';
 import Ask from '../shared/ask';
 import { Context } from '../models/context';
-import { Action } from '../models/action';
+import { Action, shouldExportConfig } from '../models/action';
 
 export default class Init implements CoreAction {
   async exec(): Promise<void> {
@@ -16,7 +16,7 @@ export default class Init implements CoreAction {
       }
 
       const newContext: Context = await Config.getContext(context.name);
-      await Config.export(newContext);
+      await Ask.confirm(shouldExportConfig, () => Config.export(newContext));
     } catch (e) {
       console.error(e);
     }

@@ -18,17 +18,19 @@ export function getConfirmNewAction(): EnquirerConfirm {
   };
 }
 
-export function getConfirmEditAction(): EnquirerConfirm {
+export function getEditChoices(): EnquirerList {
   return {
-    name: 'isEditAction',
-    message: 'Do you want to edit an existing action?',
+    name: 'getEditChoices',
+    message: 'What do you want to do?',
+    choices: ['Edit existing action', 'Create new one'],
   };
 }
 
-export function getConfirmRemoveAction(): EnquirerConfirm {
+export function getRemoveChoices(): EnquirerList {
   return {
-    name: 'isRemoveAction',
-    message: 'Do you want to remove an existing action?',
+    name: 'getRemoveChoices',
+    message: 'What are you going to remove?',
+    choices: ['Context', 'Action'],
   };
 }
 
@@ -71,5 +73,19 @@ export function getNewActionForm(): EnquirerForm {
     name: 'newAction',
     message: 'Create new action:',
     choices: getActionChoices(INITIAL_ACTION),
+  };
+}
+
+export function areYouSure(): EnquirerConfirm {
+  return {
+    name: 'areYouSure',
+    message: 'Are you sure?',
+  };
+}
+
+export function shouldExportConfig(): EnquirerConfirm {
+  return {
+    name: 'exportConfigConfirm',
+    message: 'Do you want to export this configuration?',
   };
 }
