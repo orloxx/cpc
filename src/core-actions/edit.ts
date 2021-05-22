@@ -3,7 +3,7 @@ import Ask from '../shared/ask';
 import Config from '../shared/config';
 import Logger from '../shared/logger';
 import { Context } from '../models/context';
-import { Action } from '../models/action';
+import { Action, getEditChoices } from '../models/action';
 
 export default class Edit implements CoreAction {
   async exec(): Promise<void> {
@@ -13,8 +13,8 @@ export default class Edit implements CoreAction {
 
       let newAction: Action;
       if (current.actions && Object.keys(current.actions).length) {
-        const isEdit: boolean = await Ask.isEditAction();
-        if (isEdit) {
+        const editChoice: string = await Ask.editChoice();
+        if (editChoice === getEditChoices().choices[0]) {
           const actionName: string = await Ask.listActions();
           const action: Action = await Config.getAction(actionName);
           newAction = await Ask.editAction(action);
@@ -32,6 +32,6 @@ export default class Edit implements CoreAction {
   }
 
   summary(): string {
-    return 'Edits the current context configuration';
+    return 'Manage the actions of the current context configuration';
   }
 }

@@ -57,7 +57,9 @@ export default class Help implements CoreAction {
         console.log(`You have no actions created. Try ${Logger.bold('cpc edit')}`);
       }
       console.log();
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   private static coreActions(): void {
