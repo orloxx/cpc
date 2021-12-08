@@ -43,5 +43,9 @@
   },
   "dependencies": {
     "enquirer": "2.3.6"
+  },
+  "engines": {
+    "node": "16.13.1",
+    "npm": "8.1.2"
   }
 }
