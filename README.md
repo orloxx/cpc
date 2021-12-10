@@ -74,3 +74,8 @@ Here is a sample configuration:
 After loading this example you can execute the `say-hi` action
 
     cpc say-hi
+
+## Post-use action
+
+After using the `use` or `load` command, CPC will look for the `postuse` action,
+if it exists, it will run that action after loading the new context.
