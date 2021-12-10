@@ -3,13 +3,19 @@ import { CoreAction } from './';
 import Config from '../shared/config';
 import { Context } from '../models/context';
 import Logger from '../shared/logger';
+import Run from './run';
 
 export default class Load implements CoreAction {
   async exec([configPath]: string[]): Promise<void> {
     try {
       const context: Context = await this.getContext(configPath);
       await Config.saveContext(context);
-      await Config.saveCurrent(context.name);
+      const current: Context = await Config.saveCurrent(context.name);
+
+      if (current.actions.postuse) {
+        const runAction: Run = new Run();
+        runAction.run(current.actions.postuse);
+      }
     } catch (e) {
       console.error(e);
     }

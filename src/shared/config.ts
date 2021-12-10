@@ -70,11 +70,12 @@ export default class Config {
     return Object.keys(config.contexts);
   }
 
-  static async saveCurrent(current: string): Promise<void> {
+  static async saveCurrent(current: string): Promise<Context> {
     const config: Configuration = await Config.get();
     config.current = current;
     await Config.save(config);
     console.log(`\tNow using ${Logger.bold(current)} context`);
+    return config.contexts[config.current];
   }
 
   static async getContext(contextName: string): Promise<Context> {

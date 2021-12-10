@@ -24,6 +24,7 @@
     "start": "npm run prepare && cpc",
     "lint": "eslint ./src --fix",
     "build": "tsc",
+    "watch": "tsc --watch",
     "prepare": "npm run lint && npm run build",
     "test": "jest --coverage"
   },
