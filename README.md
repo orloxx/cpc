@@ -3,7 +3,7 @@
     ██║     ██████╔╝██║
     ██║     ██╔═══╝ ██║
     ╚██████╗██║     ╚██████╗
-     ╚═════╝╚═╝      ╚═════╝ v0.0.5-SNAPSHOT
+     ╚═════╝╚═╝      ╚═════╝ v0.1.1
 
 A program to easily change context between projects.
 
