@@ -1,0 +1,12 @@
+{
+  "name": "cpc-sample",
+  "description": "Sample configuration file for cpc",
+  "scripts": {
+    "hello": "echo \"Hello world!\"",
+    "list-home": {
+      "path": "~/",
+      "command": "ls -la",
+      "description": "List home directory contents"
+    }
+  }
+}
