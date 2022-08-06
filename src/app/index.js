@@ -3,6 +3,7 @@ import { actionText } from 'src/utils/log-style'
 import help from './help'
 import load from './load'
 import run from './run'
+import use from './use'
 
 const CORE_COMMANDS = [
   {
@@ -22,6 +23,12 @@ const CORE_COMMANDS = [
     message: '⚙️  Run script',
     hint: 'cpc run',
     action: run
+  },
+  {
+    name: 'use',
+    message: '🗂  Use configuration',
+    hint: 'cpc use',
+    action: use
   }
 ]
 
@@ -41,5 +48,6 @@ export default {
   help,
   init,
   load,
-  run
+  run,
+  use
 }

@@ -48,7 +48,7 @@ export function setCurrentConfig(configRc) {
     data: globalRc
   })
 
-  console.log(`\n✅ Configuration saved! Now using '${configRc.name}'`)
+  console.log(`\n✅ Success! Now using '${configRc.name}'`)
   console.log(`\t${dim(configRc.description)}\n`)
 }
 

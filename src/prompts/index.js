@@ -30,21 +30,19 @@ export function askScripts(choices) {
     {
       type: 'autocomplete',
       name: 'scriptName',
-      message: 'We found these scripts, please choose one',
+      message: 'Please choose one script',
       choices
     }
   ])
 }
 
-export function askESLintConfig(choices) {
-  console.log(
-    '\n⚠️  This action will overwrite existing ESLint configuration files\n'
-  )
+export function askConfigurations(choices) {
+  console.log()
   return prompt([
     {
       type: 'autocomplete',
-      name: 'eslintConfig',
-      message: 'Which configuration do you want to use?',
+      name: 'configurationName',
+      message: 'Please choose one configuration',
       choices
     }
   ])

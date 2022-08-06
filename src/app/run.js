@@ -34,6 +34,11 @@ async function run() {
     throw new Error('\n⚠️  Did not find any script to run.\n')
   }
 
+  if (currentConfig) {
+    console.log(`\nGlobal scripts: ${actionText(currentConfig.name)}`)
+    console.log(`${dim(currentConfig.description)}`)
+  }
+
   const globalChoices = getChoices(currentConfig)
   const localChoices = getChoices(localConfig, CHOICES_MAP.local)
   const packageChoices = getChoices(packageJson, CHOICES_MAP.npm)

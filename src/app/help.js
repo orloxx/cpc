@@ -1,7 +1,8 @@
 import { actionText } from 'src/utils/log-style'
+import packageJson from '../../package.json'
 import { loadDoc } from './load'
 import { runDoc } from './run'
-import packageJson from '../../package.json'
+import { useDoc } from './use'
 
 function header() {
   console.log(' ██████╗██████╗  ██████╗')
@@ -29,6 +30,7 @@ function help() {
 
   loadDoc()
   runDoc()
+  useDoc()
 
   console.log()
 }
