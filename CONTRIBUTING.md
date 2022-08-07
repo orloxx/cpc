@@ -9,28 +9,28 @@ Anyone can propose changes to the project:
 
 1. Fork the repository and create a new branch for the contribution.
 2. Make the proposed changes.
-3. Rebase your branch with `main`
+3. Rebase your branch with `develop`
 4. Run `npm build` to ensure the current changes do not break.
 5. Update the README.md file if instructions changed.
-6. Create the pull request against the `main` branch.
+6. Create the pull request against the `develop` branch.
 
 ## Release Process
 
 Only members of this project can release new versions. Please follow these
 steps to create one:
 
-1. Create a new branch from `main` and name it `release/X.Y.Z`. This project
+1. Create a new branch from `develop` and name it `release/X.Y.Z`. This project
    adheres to [Semantic Versioning](http://semver.org/).
-2. Update the CHANGELOG.md file to reflect the changes that made the new
-   version.
-3. Run `npm build` to ensure the current changes do not break.
-4. Increase version in all relevant files. e.g. package.json,
+2. Run `npm build` to ensure the current changes do not break.
+3. Increase version in all relevant files. e.g. package.json,
    package-lock.json, and README.md.
+4. Update the CHANGELOG.md file to reflect the changes that made the new
+   version.
 5. Commit the changes.
-6. Tag the release using the format `vX.Y.Z` and push everything. At this point
-   the pipeline will build the release and publish it to NPM automatically.
-7. Create a pull request to merge `release/X.Y.Z` to the `main` branch.
+6. Tag the release using the format `vX.Y.Z` and push everything.
+7. Create a pull request to merge `release/X.Y.Z` to the `develop` branch.
 8. Create the GitHub release.
+9. Publish package to NPM.
 
 ## Gitflow
 
@@ -41,29 +41,34 @@ Type of branches depending on the task at hand:
 - Hotfix branches: `hotfix/<name>`
 - Release branches: `release/<version>`
 
-All branches except `main` are temporary and should be deleted after they're
-merged. There's no need for extra permanent branches like `develop`.
+All branches except `develop` are temporary and should be deleted after they're
+merged. There's no need for extra permanent branches like `main`.
 
 If there's no diagram below, open it in [Mermaid's live editor][diagram].
 
 ```mermaid
-%%{init: {'theme':'base'} }%%
+%%{
+    init: {
+        theme: 'base',
+        gitGraph: { mainBranchName: 'develop' }
+    }
+}%%
 gitGraph
   commit id: "Initial commit"
   branch feature/1
   checkout feature/1
   commit id: "1"
   commit id: "2"
-  checkout main
+  checkout develop
   branch feature/2
   checkout feature/2
   commit id: "3"
-  checkout main
+  checkout develop
   branch bugfix/1
   checkout bugfix/1
   commit id: "4"
   commit id: "5"
-  checkout main
+  checkout develop
   merge feature/1
   merge bugfix/1
   branch release/v1.0.0
@@ -73,16 +78,16 @@ gitGraph
   commit id: "7"
   checkout release/v1.0.0
   commit id: "8" type: HIGHLIGHT tag: "v1.0.0"
-  checkout main
+  checkout develop
   merge release/v1.0.0
   checkout release/v1.0.0 # it should be checkout v1.0.0 but mermaid does not support it
   branch hotfix
   commit id: "9"
   commit id: "10" type: HIGHLIGHT tag: "v1.0.1"
-  checkout main
+  checkout develop
   merge hotfix
   checkout feature/2
   commit id: "Spill over"
 ```
 
-[diagram]: https://mermaid.live/edit#pako:eNqNU8tuwjAQ_BVre0VA6DvXtgIkbvToi5MsidXEjpw1KkL8ex0wbRIC6SGX2dmZnYm8h1gnCCGkkuZGlBlXjMW6KCQxmYSMw1JJkiL3IIeaEBmh4oxtUJA1OAmOSxnGX9pSB21KBaftFjbz2Hm7EFL1WMx6LWYXcve35SKbbuR35-AW2BR76Ln38YpBgSbFdvYT1FT3VxjMUVQ42Qbj6XjakusZNd2fOu7Xi3juMAeEXzgw2pUYssVyvli575ORSOuR37gV-9-B2B1zllWmbZ6wCP9ofhzV0micesISjRVT2tFtWWrjLqVGh5kmV-tFjteeXxZMB8IFN8M1nIZrX5cyz5neouEAI_BZ3Pva11QOlGGBHGpq5GrhMDrhv8_PjfYcjCZB-HZUXokI8xrfiLzCA1cHJ2zLxBE-EknaQHicjEBY0uudiiEkY_FMepciNaLwrMMPN2JPUQ
+[diagram]: https://mermaid.live/edit#pako:eNqNU8tugzAQ_BVre42SkL459qEkUtRLevTF4AWsGoyMHTWK8u81rxYIET0godnZ2ZlBnCBUHMGHWJi1ZnlCM0JClabCEMF9QmGbCSOYbEAKJSHQLAsTEiEzVuPCq5YSDL-UNQO0K-XV2z1s1WDtNscDSpWPXFmNXlldKN5OKgY2jsT3wHYP7Ordjbi-v34jRR1jv4Qa6h5ojGiUyApcHLz5cr7sKY6MugYeBgau1_E4YE4IP1Eg5pijTzbb9Wbnnk9iWFyOmo2J5P_ORG6Iu1okykpOAvyjNePAvTrJlAlOuMKCZMrRbZ4r7cyaTo2JMq7ZiyjPIx_OW07k86bydY5Nl7_PhZREHVBTgBk0cdzvdiqpFEyCKVIoqYFrhsKsxn__RjeqqCWolWEGXyv9HQtQltOIyQJnLcWpZy9VKR-sFW4TVLnONDs7IzbnTuqdC6M0-LUGMGvU_piF4BttsSW9CRZrljas8w8D3mRC
