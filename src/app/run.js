@@ -25,20 +25,7 @@ function getChoices(config, { prefix, hint } = {}) {
   }))
 }
 
-async function run() {
-  const currentConfig = getCurrentConfig()
-  const localConfig = getLocalConfig()
-  const packageJson = readJsonFile({ filepath: 'package.json' })
-
-  if (!currentConfig && !localConfig && !packageJson) {
-    throw new Error('\n⚠️  Did not find any script to run.\n')
-  }
-
-  if (currentConfig) {
-    console.log(`\nGlobal scripts: ${actionText(currentConfig.name)}`)
-    console.log(`${dim(currentConfig.description)}`)
-  }
-
+function combineChoices([packageJson, localConfig, currentConfig]) {
   const globalChoices = getChoices(currentConfig)
   const localChoices = getChoices(localConfig, CHOICES_MAP.local)
   const packageChoices = getChoices(packageJson, CHOICES_MAP.npm)
@@ -52,11 +39,44 @@ async function run() {
   }
   choices.push(...packageChoices)
 
+  return choices
+}
+
+async function getChoice({ choices, params }) {
+  const [command] = params
+
+  if (command && choices.some(({ name }) => name === command)) {
+    return choices.find(({ name }) => name === command)
+  }
+
   const { scriptName } = await askScripts(choices)
-  const choice = choices.find(({ name }) => name === scriptName)
+  return choices.find(({ name }) => name === scriptName)
+}
+
+function getExtraParams(params) {
+  const idx = params.indexOf('--')
+  return idx > -1 ? params.slice(idx + 1) : []
+}
+
+async function run(params) {
+  const currentConfig = getCurrentConfig()
+  const localConfig = getLocalConfig()
+  const packageJson = readJsonFile({ filepath: 'package.json' })
+
+  if (!currentConfig && !localConfig && !packageJson) {
+    throw new Error('\n⚠️  Did not find any script to run.\n')
+  }
+
+  if (currentConfig) {
+    console.log(`\nGlobal scripts: ${actionText(currentConfig.name)}`)
+    console.log(`${dim(currentConfig.description)}`)
+  }
+
+  const choices = combineChoices([packageJson, localConfig, currentConfig])
+  const choice = await getChoice({ choices, params })
 
   await runCommand({
-    command: choice.command,
+    command: `${choice.command} ${getExtraParams(params).join(' ')}`,
     path: choice.directory
   })
 }

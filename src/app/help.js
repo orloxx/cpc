@@ -5,7 +5,7 @@ import { runDoc } from './run'
 import { useDoc } from './use'
 
 function header() {
-  console.log(' ██████╗██████╗  ██████╗')
+  console.log('\n ██████╗██████╗  ██████╗')
   console.log('██╔════╝██╔══██╗██╔════╝')
   console.log('██║     ██████╔╝██║')
   console.log('██║     ██╔═══╝ ██║')
