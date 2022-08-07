@@ -47,12 +47,10 @@ merged. There's no need for extra permanent branches like `main`.
 If there's no diagram below, open it in [Mermaid's live editor][diagram].
 
 ```mermaid
-%%{
-    init: {
-        'theme': 'base',
-        'gitGraph': { 'mainBranchName': 'develop' }
-    }
-}%%
+%%{ init: {
+    'theme': 'base',
+    'gitGraph': { 'mainBranchName': 'develop' }
+}}%%
 gitGraph
   commit id: "Initial commit"
   branch feature/1
