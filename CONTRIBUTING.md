@@ -49,8 +49,8 @@ If there's no diagram below, open it in [Mermaid's live editor][diagram].
 ```mermaid
 %%{
     init: {
-        theme: 'base',
-        gitGraph: { mainBranchName: 'develop' }
+        'theme': 'base',
+        'gitGraph': { 'mainBranchName': 'develop' }
     }
 }%%
 gitGraph
