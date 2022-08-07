@@ -1,19 +1,19 @@
 module.exports = {
-  // Specifies the ESLint parser
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    // Allows for the parsing of modern ECMAScript features
-    ecmaVersion: 2020,
-    // Allows for the use of imports
-    sourceType: 'module',
+  env: {
+    'jest/globals': true
   },
-  plugins: ['prettier'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended',
-  ],
+  settings: {
+    'import/resolver': {
+      node: {
+        moduleDirectory: ['./node_modules', './']
+      }
+    }
+  },
+  extends: ['./node_modules/@maarkllc/code-config/js/base/eslint'],
+  plugins: ['jest'],
   rules: {
-    '@typescript-eslint/no-var-requires': 'warn',
-  },
-};
+    'no-restricted-syntax': 0,
+    'no-await-in-loop': 0,
+    'import/no-extraneous-dependencies': 0
+  }
+}

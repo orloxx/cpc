@@ -3,79 +3,75 @@
     ██║     ██████╔╝██║
     ██║     ██╔═══╝ ██║
     ╚██████╗██║     ╚██████╗
-     ╚═════╝╚═╝      ╚═════╝ v0.1.1
+     ╚═════╝╚═╝      ╚═════╝ v1.0.0
 
-A program to easily change context between projects.
+A program that suggest scripts depending on the context.
 
     npm install -g @orloxx/cpc
 
 ## Usage
 
-    cpc [core action|context action]
+### Run
 
-Start by creating a new context
+It looks for scripts in the current directory and suggests them to later run
+them. It accepts a `command` to directly run it without suggestions. It also
+accepts `arguments` to pass to the script.
 
-    cpc init
+```bash
+$ cpc run [command] [-- arguments]
+```
 
-Activate the context by using it
+- `command` (optional) - If you already know the command you want to run, you
+  can directly pass it.
+- `arguments` (optional) - Everything after `--` will be appended to the
+  command.
 
-    cpc use
+#### Where does it take it the scripts from?
 
-Edit/Add custom actions for the current context
+- From any global configuration in usage – see [Load](#load)
+- From the `.cpcrc` file in the current directory – see [Configure](#configure)
+- From the `package.json` file in the current directory
 
-    cpc edit
+### Load
 
-Get context configuration information
+It loads a set of scripts to be used globally, no matter in which directory
+they're executed
 
-    cpc info
+```bash
+$ cpc load [filepath]
+```
 
-Remove a whole context configuration
+- `filepath` (optional) - The path to the script file. If not provided, it
+  will look for a `.cpcrc` file in the current directory. It supports different
+  file formats:
+  - `.cpcrc` - JSON format
+  - `.cpcrc.json`
+  - `.cpcrc.js` - JavaScript format
 
-    cpc remove
+:warning: If you load a script file with the same `name` property, scripts will
+be overwritten.
 
-## Running custom actions
+## Configure
 
-Execute custom actions from the current context
+There's a sample `.cpcrc` file in the root directory of the project:
 
-    cpc run
-
-Or, you can also execute the action directly if you know the name
-
-    cpc <context action>
-
-## Loading configuration
-
-It loads the context configuration from `configPath` which accepts .js files,
-if empty it will look for `./cpcconfig.json`
-
-    cpc load [configPath]
-
-Here is a sample configuration:
-
-    {
-        "name": "custom-context",
-        "description": "Sample context with few actions",
-        "actions": {
-            "say-hi": {
-                "name": "say-hi",
-                "path": "",
-                "command": "echo 'Hi there!'",
-                "description": "Says hi"
-            },
-            "show-home": {
-                "name": "show-home",
-                "path": "~/",
-                "command": "ls -la",
-                "description": "Prints out all files in the home folder"
-            }
-        }
+```json
+{
+  "name": "cpc-sample",
+  "description": "Sample configuration file for cpc",
+  "scripts": {
+    "hello": "echo \"Hello world!\"",
+    "list-home": {
+      "path": "~/",
+      "command": "ls -la",
+      "description": "List home directory contents"
     }
+  }
+}
+```
 
-After loading this example you can execute the `say-hi` action
+You can try running `cpc run` and you'll get a list of suggestions with 2
+options: `hello` and `list-home`.
 
-    cpc say-hi
-
-## Post-use action
-
-After using the `use` or `load` command, CPC will look for the `postuse` action,
-if it exists, it will run that action after loading the new context.
+`list-home` is a script that runs `ls -la` in the home directory defined by
+`path`. It also includes a description.
