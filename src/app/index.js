@@ -32,7 +32,7 @@ const CORE_COMMANDS = [
   }
 ]
 
-async function init() {
+async function init(params) {
   const all = await askCoreCommands(CORE_COMMANDS)
   const { coreCommands } = all
   const command = CORE_COMMANDS.find(({ name }) => coreCommands === name)
@@ -41,7 +41,7 @@ async function init() {
     console.log(`\nNow running ${actionText(command.hint)}\n`)
   }
 
-  await command.action()
+  await command.action(params)
 }
 
 export default {
