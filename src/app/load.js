@@ -29,13 +29,14 @@ function load([name] = []) {
 }
 
 export function loadDoc() {
-  console.log(`\n\t${actionText('load')}\t- Load a CPC configuration file`)
+  console.log(`\n\t${actionText('load')}\t- Load a CPC scripts file`)
   console.log(
     `\t\t  ${dim(
-      'It will persist the commands no matter the current path your in.'
+      'It loads a set of scripts to be used globally, no matter in which'
     )}`
   )
-  console.log(`\n\t\t  ${dim('e.g. cpc load [config-filename]')}`)
+  console.log(`\t\t  ${dim("directory they're executed")}`)
+  console.log(`\n\t\t  ${dim('cpc load [filepath]')}`)
 }
 
 export default load

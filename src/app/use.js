@@ -17,7 +17,7 @@ export function useDoc() {
       'It shows a list of previously loaded configurations to choose from'
     )}`
   )
-  console.log(`\n\t\t  ${dim('e.g. cpc use')}`)
+  console.log(`\n\t\t  ${dim('cpc use')}`)
 }
 
 export default use

@@ -89,7 +89,7 @@ export function runDoc() {
     )}`
   )
   console.log(`\t\t  ${dim('the package.json file.')}`)
-  console.log(`\n\t\t  ${dim('e.g. cpc run')}`)
+  console.log(`\n\t\t  ${dim('cpc run [command] [-- arguments]')}`)
 }
 
 export default run
