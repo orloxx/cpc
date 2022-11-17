@@ -21,11 +21,11 @@ steps to create one:
 
 1. Create a new branch from `develop` and name it `release/X.Y.Z`. This project
    adheres to [Semantic Versioning](http://semver.org/).
-2. Run `npm build` to ensure the current changes do not break.
-3. Increase version in all relevant files. e.g. package.json,
-   package-lock.json, and README.md.
-4. Update the CHANGELOG.md file to reflect the changes that made the new
+2. Update the CHANGELOG.md file to reflect the changes that made the new
    version.
+3. Run `npm build` to ensure the current changes do not break.
+4. Increase version in all relevant files. e.g. package.json,
+   package-lock.json, and README.md.
 5. Commit the changes.
 6. Tag the release using the format `vX.Y.Z` and push everything.
 7. Create a pull request to merge `release/X.Y.Z` to the `develop` branch.

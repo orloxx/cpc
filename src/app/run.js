@@ -12,7 +12,7 @@ function getChoices(config, { prefix, hint } = {}) {
   if (!config) return []
 
   const { scripts } = config
-  const isNPM = prefix === 'npm-'
+  const isNPM = prefix === CHOICES_MAP.npm.prefix
 
   return Object.keys(scripts).map((command) => ({
     name: `${prefix || ''}${command}`,

@@ -30,7 +30,7 @@ export function askScripts(choices) {
     {
       type: 'autocomplete',
       name: 'scriptName',
-      message: 'Please choose one script',
+      message: 'Please choose a script',
       choices
     }
   ])
