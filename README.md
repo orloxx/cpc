@@ -3,7 +3,7 @@
     ██║     ██████╔╝██║
     ██║     ██╔═══╝ ██║
     ╚██████╗██║     ╚██████╗
-     ╚═════╝╚═╝      ╚═════╝ v1.0.0
+     ╚═════╝╚═╝      ╚═════╝ v1.0.2
 
 A program that suggest scripts depending on the context.
 
@@ -18,15 +18,14 @@ them. It accepts a `command` to directly run it without suggestions. It also
 accepts `arguments` to pass to the script.
 
 ```bash
-$ cpc run [-s] [command] [-- arguments]
+$ cpc run [-s] [<script>] [-- <arguments>]
 ```
 
-- `--silent` (`-s`) (optional) - If you don't want CPC helping sentences
-  to be added to the output.
-- `command` (optional) - If you already know the command you want to run, you
+- `-s`, `--silent` (optional) - Will not print any hint from CPC.
+- `<script>` (optional) - If you already know the script you want to run, you
   can directly pass it. It will run silently by default.
-- `arguments` (optional) - Everything after `--` will be appended to the
-  command.
+- `<arguments>` (optional) - Everything after `--` will be passed to the
+  `<script>`.
 
 #### Where does it take it the scripts from?
 
@@ -40,10 +39,10 @@ It loads a set of scripts to be used globally, no matter in which directory
 they're executed
 
 ```bash
-$ cpc load [filepath]
+$ cpc load [<filepath>]
 ```
 
-- `filepath` (optional) - The path to the script file. If not provided, it
+- `<filepath>` (optional) - The path to the script file. If not provided, it
   will look for a `.cpcrc` file in the current directory. It supports different
   file formats:
   - `.cpcrc` - JSON format

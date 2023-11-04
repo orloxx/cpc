@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.2
+
+_2023-11-04_
+
+### Changed
+
+- `use` core command can receive an optional <configuration> preselection.
+- Docs are more specific.
+- Updated version number correctly.
+
 ## 1.0.1
 
 _2023-11-04_

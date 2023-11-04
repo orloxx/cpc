@@ -1,4 +1,3 @@
-import { actionText, dim } from 'src/utils/log-style'
 import packageJson from '../../package.json'
 import { loadDoc } from './load'
 import { runDoc } from './run'
@@ -24,10 +23,6 @@ function help() {
   synopsis()
 
   console.log('\nAvailable commands:')
-
-  // Help
-  console.log(`\n\t${actionText('help')}\t- Show this help screen`)
-  console.log(`\n\t\t  ${dim('cpc help')}`)
 
   loadDoc()
   runDoc()

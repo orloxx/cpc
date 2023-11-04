@@ -101,14 +101,28 @@ async function run(params) {
 }
 
 export function runDoc() {
-  console.log(`\n\t${actionText('run')}\t- Run script`)
   console.log(
-    `\t\t  ${dim(
-      'It will look for scripts to run in the global configuration or in'
+    `\n\t${actionText('run')}\tcpc run [-s] [<script>] [-- <arguments>]`
+  )
+  console.log(
+    `\n\t\t${dim(
+      'It will look for scripts to run in the global configuration,'
     )}`
   )
-  console.log(`\t\t  ${dim('the package.json file.')}`)
-  console.log(`\n\t\t  ${dim('cpc run [command] [-- arguments]')}`)
+  console.log(`\t\t  ${dim('or in the package.json file.')}`)
+  console.log(`\n\t\t-s, --silent ${dim('will not print any hint from CPC.')}`)
+  console.log(
+    `\t\t<script> ${dim('If you already know the script you want to run, you')}`
+  )
+  console.log(
+    `\t\t  ${dim('can directly pass it. It will run silently by default.')}`
+  )
+  console.log(
+    `\t\t<arguments> ${dim(
+      'Everything after the -- will be passed as arguments'
+    )}`
+  )
+  console.log(`\t\t  ${dim('to the <script>.')}`)
 }
 
 export default run

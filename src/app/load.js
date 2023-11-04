@@ -29,14 +29,19 @@ function load([name] = []) {
 }
 
 export function loadDoc() {
-  console.log(`\n\t${actionText('load')}\t- Load a CPC scripts file`)
+  console.log(`\n\t${actionText('load')}\tcpc load [<filepath>]`)
+  console.log(`\n\t\t${dim('It loads a set of scripts to be used globally,')}`)
+  console.log(`\t\t  ${dim('no matter in which directory they are executed.')}`)
   console.log(
-    `\t\t  ${dim(
-      'It loads a set of scripts to be used globally, no matter in which'
-    )}`
+    `\n\t\t<filepath> ${dim('The path to the script file. If empty,')}`
   )
-  console.log(`\t\t  ${dim("directory they're executed")}`)
-  console.log(`\n\t\t  ${dim('cpc load [filepath]')}`)
+  console.log(
+    `\t\t  ${dim('it will look for a .cpcrc file in the current directory.')}`
+  )
+  console.log(`\t\t${dim('It supports the following formats:')}`)
+  console.log(`\t\t  ${dim('- .cpcrc: JSON format')}`)
+  console.log(`\t\t  ${dim('- .cpcrc.json: JSON format')}`)
+  console.log(`\t\t  ${dim('- .cpcrc.js: JavaScript format')}`)
 }
 
 export default load
