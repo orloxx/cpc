@@ -39,17 +39,16 @@ export function getDirectories({ path }) {
     .map((dirent) => dirent.name)
 }
 
-export function runCommand({ command, path, silent, pipeError }) {
+export function runCommand({ command, path, pipeError, args = [] }) {
   return new Promise((resolve) => {
     const endCommand = path ? `cd ${path} && ${command}` : command
 
-    if (!silent) {
-      console.log(`\n💬 Executing: ${dim(endCommand)}\n`)
-    }
+    console.log(`\n💬 Executing: ${dim(endCommand)} ${dim(args.join(' '))}\n`)
 
-    const p = spawn(endCommand, {
-      shell: true,
-      stdio: silent ? null : [0, 1, pipeError ? 'pipe' : 2]
+    const p = spawn(endCommand, args, {
+      shell: process.env.SHELL || true,
+      stdio: [0, 1, pipeError ? 'pipe' : 2],
+      env: process.env
     })
 
     let errorOutput = ''

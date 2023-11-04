@@ -18,11 +18,13 @@ them. It accepts a `command` to directly run it without suggestions. It also
 accepts `arguments` to pass to the script.
 
 ```bash
-$ cpc run [command] [-- arguments]
+$ cpc run [-s] [command] [-- arguments]
 ```
 
+- `--silent` (`-s`) (optional) - If you don't want CPC helping sentences
+  to be added to the output.
 - `command` (optional) - If you already know the command you want to run, you
-  can directly pass it.
+  can directly pass it. It will run silently by default.
 - `arguments` (optional) - Everything after `--` will be appended to the
   command.
 

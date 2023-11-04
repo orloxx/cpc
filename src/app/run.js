@@ -58,7 +58,25 @@ function getExtraParams(params) {
   return idx > -1 ? params.slice(idx + 1) : []
 }
 
+function isSilent(params) {
+  if (params.includes('--silent') || params.includes('-s')) {
+    return true
+  }
+
+  const extraParams = getExtraParams(params)
+
+  if (extraParams.length) {
+    return params.length - extraParams.length > 1
+  }
+
+  return !!params.length
+}
+
 async function run(params) {
+  if (isSilent(params)) {
+    console.log = () => {}
+  }
+
   const currentConfig = getCurrentConfig()
   const localConfig = getLocalConfig()
   const packageJson = readJsonFile({ filepath: 'package.json' })
@@ -76,8 +94,9 @@ async function run(params) {
   const choice = await getChoice({ choices, params })
 
   await runCommand({
-    command: `${choice.command} ${getExtraParams(params).join(' ')}`,
-    path: choice.directory
+    command: choice.command,
+    path: choice.directory,
+    args: getExtraParams(params)
   })
 }
 
