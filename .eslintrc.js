@@ -9,7 +9,7 @@ module.exports = {
       }
     }
   },
-  extends: ['./node_modules/@maarkllc/code-config/js/base/eslint'],
+  extends: ['./node_modules/@maarkllc/code-config/configs/eslint/js/base'],
   plugins: ['jest'],
   rules: {
     'no-restricted-syntax': 0,
